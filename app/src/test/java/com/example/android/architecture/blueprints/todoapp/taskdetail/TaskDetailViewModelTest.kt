@@ -134,7 +134,20 @@ class TaskDetailViewModelTest {
 
     @Test
     fun loadTask_loading() {
-        // TODO
+        //Before launch the coroutine, pause dispatcher so we can check initial state.
+        mainCoroutineRule.pauseDispatcher()
+
+        // Load the task in the viewmodel
+        taskDetailViewModel.start(task.id)
+
+        // Check progress indicator is shown
+        assertThat(getValue(taskDetailViewModel.dataLoading)).isTrue()
+
+        //Then Resume pending coroutine
+        mainCoroutineRule.resumeDispatcher()
+
+        // Check progress indicator is hidden
+        assertThat(getValue(taskDetailViewModel.dataLoading)).isFalse()
     }
 
     @Test

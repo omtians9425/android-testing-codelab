@@ -49,7 +49,7 @@ object ServiceLocator {
             .build()
 
         return DefaultTasksRepository(
-            FakeTasksRemoteDataSource,
+            FakeTasksRemoteDataSource, //Inject fake
             TasksLocalDataSource(database!!.taskDao())
         )
     }

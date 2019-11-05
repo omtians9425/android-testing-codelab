@@ -66,13 +66,23 @@ class TasksFragmentTest {
     @Test
     fun clickAddTaskButton_navigateToAddEditFragment() {
         // GIVEN - On the home screen
-        // TODO
+        val scenario = launchFragmentInContainer<TasksFragment>(Bundle(), R.style.AppTheme)
+        val navController = mock(NavController::class.java)
+        scenario.onFragment {
+            Navigation.setViewNavController(it.view!!, navController)
+        }
 
         // WHEN - Click on the "+" button
-        // TODO
+        // Within onClickListener, navigation to the add screen must be implemented.
+        onView(withId(R.id.fab_add_task)).perform(click())
 
         // THEN - Verify that we navigate to the add screen
-        // TODO
+        // Format: verify(targetObject).methodShouldBeCalled()
+        verify(navController).navigate(
+            TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(
+                null, getApplicationContext<Context>().getString(R.string.add_task)
+            )
+        )
     }
 
     @Test
